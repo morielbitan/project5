@@ -43,18 +43,11 @@ function App() {
           <Route path="/info" element={<Info />} /> */}
 
           {/* <Route path="*" element={<Home />} /> */}
-        </Routes>
-      </BrowserRouter>
-      <BrowserRouter>
-        <Routes>
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/home" element={<Home />} /> */}
         </Routes>
       </BrowserRouter>
     </>
   );
-  );
 }
 
-export default App;
 export default App;
