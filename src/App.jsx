@@ -1,52 +1,64 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import Info from "./Info";
-import { useState } from "react";
 import Login from "./Login";
+import Logout from "./Logout";
+import Todos from "./Todos";
+
+function MainLayout() {
+  return (
+    <>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/home">Home</Link>
+          </li>
+          <li>
+            <Link to="/info">Info</Link>
+          </li>
+          <li>
+            <Link to="/Albums">Albums</Link>
+          </li>
+          <li>
+            <Link to="/Posts">Posts</Link>
+          </li>
+          <li>
+            <Link to="/Todos">Todos</Link>
+          </li>
+          <li>
+            <Link to="/Logout">Logout</Link>
+          </li>
+        </ul>
+      </nav>
+      <Outlet />
+    </>
+  );
+}
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/info">Info</Link>
-            </li>
-            <li>
-              <Link to="/Albums">Albums</Link>
-            </li>
-            <li>
-              <Link to="/Posts">Posts</Link>
-            </li>
-            <li>
-              <Link to="/Todos">Todos</Link>
-            </li>
-            <li>
-              <Link to="/Logout">Logout</Link>
-            </li>
-          </ul>
-        </nav>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/info" element={<Info />} />
-          {/* <Route path="/Albums" element={<Albums />} /> */}
-          {/* <Route path="/info" element={<Info />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/info" element={<Info />} /> */}
+        <Route element={<MainLayout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="info" element={<Info />} />
+          <Route path="Todos" element={<Todos />} />
 
-          {/* <Route path="*" element={<Home />} /> */}
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+          <Route path="/Logout" element={<Logout />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

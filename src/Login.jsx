@@ -31,6 +31,7 @@ function Login() {
         else {
           console.log(`username ${username} with password ${password} exists!`);
           localStorage.setItem("userInfo", JSON.stringify(foundUser));
+
           navigate("/home");
         }
       } catch (error) {

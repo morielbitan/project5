@@ -1,30 +1,24 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./App.css";
 
 function Info() {
-  const [userInfo, setUserInfo] = useState({
-    id: 1,
-    name: "Leanne Graham",
-    username: "Bret",
-    email: "Sincere@april.biz",
-    address: {
-      street: "Kulas Light",
-      suite: "Apt. 556",
-      city: "Gwenborough",
-      zipcode: "92998-3874",
-      geo: {
-        lat: "-37.3159",
-        lng: "81.1496",
-      },
-    },
-    phone: "1-770-736-8031 x56442",
-    website: "hildegard.org",
-    company: {
-      name: "Romaguera-Crona",
-      catchPhrase: "Multi-layered client-server neural-net",
-      bs: "harness real-time e-markets",
-    },
-  });
+  const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const User = localStorage.getItem("userInfo");
+    if (User) {
+      setUserInfo(JSON.parse(User));
+    } else {
+      navigate("/");
+    }
+  }, []);
+  if (!userInfo) {
+    return <p>Loading user info...</p>;
+  }
+
   return (
     <>
       <div>
@@ -35,7 +29,7 @@ function Info() {
         <p>email: {userInfo.email}</p>
 
         <p>address:</p>
-        <p>street: {userInfo.address.street}</p>
+        <p>street: {userInfo.address?.street}</p>
         <p>suite: {userInfo.address.suite}</p>
         <p>city: {userInfo.address.city}</p>
         <p>zipcode: {userInfo.address.zipcode}</p>
