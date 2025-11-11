@@ -7,11 +7,11 @@ function Posts() {
   const [posts, setPosts] = useState([]);
   const userId = JSON.parse(localStorage.getItem("userInfo"))["id"];
   const [searchId, setSearchId] = useState("");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getPosts() {
       try {
+        console.log(`http://localhost:3000/posts?userId=${userId}`);
         const response = await fetch(
           `http://localhost:3000/posts?userId=${userId}`
         );
@@ -20,8 +20,6 @@ function Posts() {
         console.log(jsonData);
       } catch (error) {
         console.error("Error fetching posts:", error);
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -48,9 +46,7 @@ function Posts() {
           onChange={(e) => setSearchId(e.target.value)}
         />
 
-        {loading ? (
-          <p>Loading posts...</p>
-        ) : filteredPosts.length === 0 ? (
+        {filteredPosts.length === 0 ? (
           <p>No posts found.</p>
         ) : (
           <ul>

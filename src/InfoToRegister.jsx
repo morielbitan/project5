@@ -8,29 +8,43 @@ function InfoToRegister() {
   const navigate = useNavigate();
 
   async function addUserToDb(user) {
-    const response = await fetch("http://localhost:3000/users", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    // Is the response needed?
-    await response.then((response) => response.json());
+    try {
+      const response = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const newUser = await response.json(); // This includes the new ID
+      return newUser;
+    } catch (error) {
+      console.error("Error adding user:", error);
+      return null;
+    }
   }
 
-  function handleSubmit() {
-    const existing = JSON.parse(localStorage.getItem("userInfo"));
-    const updated = {
-      ...existing,
-      name: name,
-      email: email,
-      phone: phone,
-    };
-    localStorage.setItem("userInfo", JSON.stringify(updated));
-    addUserToDb(updated);
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-    navigate("/home");
+    const existing = JSON.parse(localStorage.getItem("userInfo"));
+
+    const newUser = {
+      ...existing,
+      name,
+      email,
+      phone,
+    };
+
+    const createdUser = await addUserToDb(newUser);
+
+    if (createdUser) {
+      localStorage.setItem("userInfo", JSON.stringify(createdUser));
+      console.log("Saved to localStorage:", createdUser);
+      navigate("/home");
+    } else {
+      console.error("Failed to create user");
+    }
   }
 
   return (

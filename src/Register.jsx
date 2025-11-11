@@ -7,7 +7,9 @@ function Register() {
   const [checkPassword, setCheckPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
     if (password === checkPassword) {
       localStorage.setItem(
         "userInfo",
