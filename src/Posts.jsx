@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import SinglePost from "./SinglePost";
 import AddPost from "./AddPost";
 
 function Posts() {
@@ -27,12 +28,6 @@ function Posts() {
     if (userId) getPosts();
   }, [userId]);
 
-  function deletePostFromDb(postId) {}
-
-  function handleDelete(postId) {
-    deletePostFromDb(postId);
-  }
-
   const filteredPosts = searchId
     ? posts.filter((post) => post.id.toString() === searchId)
     : posts;
@@ -47,7 +42,7 @@ function Posts() {
         <h5>Search a post:</h5>
 
         <input
-          type="number"
+          type="text"
           placeholder="Search by post ID"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
@@ -59,11 +54,10 @@ function Posts() {
           <p>No posts found.</p>
         ) : (
           <ul>
+            {console.log("the posts: ", posts)}
             {filteredPosts.map((post) => (
               <li key={post.id}>
-                <h4>ID: {post.id}</h4>
-                <h3>{post.title}</h3>
-                <button onClick={() => handleDelete(post.id)}>Delete</button>
+                <SinglePost post={post} posts={posts} setPosts={setPosts} />
               </li>
             ))}
           </ul>

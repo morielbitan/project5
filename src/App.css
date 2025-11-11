@@ -1,6 +1,11 @@
 /* App.css */
 
 /* אפס מרג'ין ופדינג לכל הדף */
+
+.expanded {
+  background-color: aqua;
+}
+
 body {
   /* margin: 0;
   padding: 0; */

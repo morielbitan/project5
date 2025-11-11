@@ -13,6 +13,7 @@ import Login from "./Login";
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
 import Posts from "./Posts";
+import Todos from "./Todos";
 
 function MainLayout() {
   return (
@@ -57,7 +58,7 @@ function App() {
           <Route path="/info" element={<Info />} />
           <Route path="/posts" element={<Posts />} />
 
-          {/* <Route path="Todos" element={<Todos />} /> */}
+          <Route path="Todos" element={<Todos />} />
 
           {/* <Route path="/Logout" element={<Logout />} /> */}
         </Route>
