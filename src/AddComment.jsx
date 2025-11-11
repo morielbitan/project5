@@ -12,21 +12,18 @@ function AddComment(props) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-
-    setNewPostTitle("");
-    setNewPostBody("");
+    setNewComment("");
   }
 
   function handleSubmit() {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    const newComment = {
+    const fullComment = {
       postId: props.postId,
       name: userInfo["name"],
       email: userInfo["email"],
       body: newComment,
     };
-    // add the function:
-    addCommentToDb(newComment);
+    addCommentToDb(fullComment);
   }
 
   return (

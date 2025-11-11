@@ -12,13 +12,16 @@ function AddPost(props) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    });
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
     setNewPostTitle("");
     setNewPostBody("");
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     const newPost = {
       userId: props.userId,
       title: newPostTitle,
