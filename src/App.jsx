@@ -12,11 +12,11 @@ import Info from "./Info";
 import Todos from "./Todos";
 import Login from "./Login";
 import Logout from "./Logout";
-
+import Albums from "./Albums";
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
 import Posts from "./Posts";
-import Todos from "./Todos";
+import Photos from "./Photos";
 
 function MainLayout() {
   return (
@@ -62,14 +62,14 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/info" element={<Info />} />
           <Route path="/posts" element={<Posts />} />
-
           <Route path="Todos" element={<Todos />} />
-
           {/* <Route path="/Logout" element={<Logout />} /> */}
           <Route path="home" element={<Home />} />
           <Route path="info" element={<Info />} />
           <Route path="todos" element={<Todos />} />
           <Route path="/Logout" element={<Logout />} />
+          <Route path="/Albums" element={<Albums />} />
+          <Route path="/albums/:id/photos" element={<Photos />} />
         </Route>
       </Routes>
     </BrowserRouter>
