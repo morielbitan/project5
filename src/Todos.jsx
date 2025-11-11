@@ -103,12 +103,12 @@ function Todos() {
         <h2>Search a todo:</h2>
 
         <input
-          type="number"
+          type="text"
           placeholder="Search by todo ID"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
         />
-        {todos.length === 0 ? (
+        {filteredTodos.length === 0 ? (
           <p>No todo found.</p>
         ) : (
           <ol>

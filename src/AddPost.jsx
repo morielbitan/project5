@@ -24,6 +24,7 @@ function AddPost(props) {
       title: newPostTitle,
       body: newPostBody,
     };
+    console.log("user id- ", props.userId);
     addPostToDb(newPost);
   }
 

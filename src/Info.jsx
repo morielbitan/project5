@@ -40,9 +40,9 @@ function Info() {
         <p>phone: {userInfo.phone}</p>
         <p>website: {userInfo.website}</p>
         <p>company:</p>
-        <p>website: {userInfo.company.name}</p>
-        <p>website: {userInfo.company.catchPhrase}</p>
-        <p>website: {userInfo.company.bs}</p>
+        <p>name: {userInfo.company.name}</p>
+        <p>catchPhrase: {userInfo.company.catchPhrase}</p>
+        <p>bs: {userInfo.company.bs}</p>
       </div>
     </>
   );

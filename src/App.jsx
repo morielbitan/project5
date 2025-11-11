@@ -16,7 +16,6 @@ import Logout from "./Logout";
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
 import Posts from "./Posts";
-import Todos from "./Todos";
 
 function MainLayout() {
   return (
