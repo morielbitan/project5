@@ -12,6 +12,7 @@ import Info from "./Info";
 import Login from "./Login";
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
+import Posts from "./Posts";
 
 function MainLayout() {
   return (
@@ -48,15 +49,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-           <Route path="/register" element={<Register />} />
-          <Route path="/infoToRegister" element={<InfoToRegister />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/infoToRegister" element={<InfoToRegister />} />
 
         <Route element={<MainLayout />}>
-          <Route path="home" element={<Home />} />
-          <Route path="info" element={<Info />} />
-          <Route path="Todos" element={<Todos />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/posts" element={<Posts />} />
 
-          <Route path="/Logout" element={<Logout />} />
+          {/* <Route path="Todos" element={<Todos />} /> */}
+
+          {/* <Route path="/Logout" element={<Logout />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

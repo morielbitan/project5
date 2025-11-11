@@ -15,6 +15,7 @@ function InfoToRegister() {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
+    // Is the response needed?
     await response.then((response) => response.json());
   }
 
