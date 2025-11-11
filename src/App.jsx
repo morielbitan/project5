@@ -10,8 +10,8 @@ import "./App.css";
 import Home from "./Home";
 import Info from "./Info";
 import Login from "./Login";
-import Logout from "./Logout";
-import Todos from "./Todos";
+import Register from "./Register";
+import InfoToRegister from "./InfoToRegister";
 
 function MainLayout() {
   return (
@@ -48,7 +48,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        
+                  <Route path="/register" element={<Register />} />
+          <Route path="/infoToRegister" element={<InfoToRegister />} />
 
         <Route element={<MainLayout />}>
           <Route path="home" element={<Home />} />
