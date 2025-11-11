@@ -15,6 +15,7 @@ import Logout from "./Logout";
 
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
+import Posts from "./Posts";
 
 function MainLayout() {
   return (
@@ -53,8 +54,17 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/infoToRegister" element={<InfoToRegister />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/infoToRegister" element={<InfoToRegister />} />
 
         <Route element={<MainLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/posts" element={<Posts />} />
+
+          {/* <Route path="Todos" element={<Todos />} /> */}
+
+          {/* <Route path="/Logout" element={<Logout />} /> */}
           <Route path="home" element={<Home />} />
           <Route path="info" element={<Info />} />
           <Route path="todos" element={<Todos />} />
