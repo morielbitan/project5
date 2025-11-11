@@ -9,7 +9,10 @@ import {
 import "./App.css";
 import Home from "./Home";
 import Info from "./Info";
+import Todos from "./Todos";
 import Login from "./Login";
+import Logout from "./Logout";
+
 import Register from "./Register";
 import InfoToRegister from "./InfoToRegister";
 import Posts from "./Posts";
@@ -52,6 +55,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/infoToRegister" element={<InfoToRegister />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/infoToRegister" element={<InfoToRegister />} />
 
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
@@ -61,6 +66,10 @@ function App() {
           <Route path="Todos" element={<Todos />} />
 
           {/* <Route path="/Logout" element={<Logout />} /> */}
+          <Route path="home" element={<Home />} />
+          <Route path="info" element={<Info />} />
+          <Route path="todos" element={<Todos />} />
+          <Route path="/Logout" element={<Logout />} />
         </Route>
       </Routes>
     </BrowserRouter>
