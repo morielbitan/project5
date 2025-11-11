@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Todos() {
   const [userInfo, setUserInfo] = useState(null);
   const [sort, setSort] = useState("Chose how to sort");
+  const [searchId, setSearchId] = useState("");
 
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
@@ -80,6 +81,15 @@ function Todos() {
       }
     }
   };
+  function handleDelete(id) {
+    fetch(`http://localhost:3000/todos/${id}`, {
+      method: "DELETE",
+    });
+  }
+  const filteredTodos = searchId
+    ? todos.filter((todo) => todo.id.toString() === searchId)
+    : todos;
+
   return (
     <>
       <div>
@@ -90,11 +100,19 @@ function Todos() {
           <option value="Random">Random</option>
           <option value="Completed">Chek</option>
         </select>
+        <h2>Search a todo:</h2>
+
+        <input
+          type="number"
+          placeholder="Search by todo ID"
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
+        />
         {todos.length === 0 ? (
-          <p></p>
+          <p>No todo found.</p>
         ) : (
           <ol>
-            {todos.map((todo) => (
+            {filteredTodos.map((todo) => (
               <li key={todo.id}>
                 <label>
                   <input
@@ -103,6 +121,7 @@ function Todos() {
                     onChange={() => handleToggle(todo.id)}
                   />
                   {todo.title}
+                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
                 </label>
               </li>
             ))}
