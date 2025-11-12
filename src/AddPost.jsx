@@ -20,8 +20,7 @@ function AddPost(props) {
     setNewPostBody("");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit() {
     const newPost = {
       userId: props.userId,
       title: newPostTitle,

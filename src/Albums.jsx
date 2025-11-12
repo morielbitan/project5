@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import AddAlbum from "./AddAlbum";
 
 function Albums() {
   const [userInfo, setUserInfo] = useState(null);
@@ -43,6 +44,9 @@ function Albums() {
     <>
       <div>
         <h1>Albums</h1>
+
+        {userInfo && <AddAlbum userId={userInfo.id} />}
+
         <h2>Search a album:</h2>
 
         <input

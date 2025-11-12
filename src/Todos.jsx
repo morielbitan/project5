@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import AddTodo from "./AddTodo";
 
 function Todos() {
   const [userInfo, setUserInfo] = useState(null);
   const [sort, setSort] = useState("Chose how to sort");
   const [searchId, setSearchId] = useState("");
-
-  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
-  //   const [id, setId] = useState(1);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const User = localStorage.getItem("userInfo");
     if (User) {
@@ -18,6 +18,7 @@ function Todos() {
       navigate("/");
     }
   }, [navigate]);
+
   useEffect(() => {
     if (!userInfo) return;
     const fetchData = async () => {
@@ -34,6 +35,7 @@ function Todos() {
     };
     fetchData();
   }, [userInfo]);
+
   const handleToggle = (id) => {
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if (!todoToUpdate) return;
@@ -55,6 +57,7 @@ function Todos() {
       })
       .catch((err) => console.error("Error updating todo:", err));
   };
+
   const handleChange = (e) => {
     setSort(e.target.value);
     if (e.target.value === "Alphabetical") {
@@ -81,11 +84,22 @@ function Todos() {
       }
     }
   };
-  function handleDelete(id) {
-    fetch(`http://localhost:3000/todos/${id}`, {
-      method: "DELETE",
-    });
+
+  async function deleteTodoFromDb(todoId) {
+    try {
+      await fetch(`http://localhost:3000/todos/${todoId}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   }
+
+  function handleDelete(todoId) {
+    deleteTodoFromDb(todoId);
+    setTodos(todos.filter((todo) => todo["id"] !== todoId));
+  }
+
   const filteredTodos = searchId
     ? todos.filter((todo) => todo.id.toString() === searchId)
     : todos;
@@ -93,6 +107,8 @@ function Todos() {
   return (
     <>
       <div>
+        {userInfo && <AddTodo userId={userInfo.id} />}
+
         <h1>Todos</h1>
         <select value={sort} onChange={handleChange}>
           <option value="Id">Id</option>
@@ -100,14 +116,15 @@ function Todos() {
           <option value="Random">Random</option>
           <option value="Completed">Chek</option>
         </select>
-        <h2>Search a todo:</h2>
 
+        <h2>Search a todo:</h2>
         <input
           type="text"
           placeholder="Search by todo ID"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
         />
+
         {filteredTodos.length === 0 ? (
           <p>No todo found.</p>
         ) : (
@@ -121,6 +138,7 @@ function Todos() {
                     onChange={() => handleToggle(todo.id)}
                   />
                   {todo.title}
+
                   <button onClick={() => handleDelete(todo.id)}>Delete</button>
                 </label>
               </li>

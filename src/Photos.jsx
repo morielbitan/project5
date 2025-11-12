@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
-import Albums from "./Albums";
+import AddPhoto from "./AddPhotos";
 
 function Photos() {
   const [userInfo, setUserInfo] = useState();
@@ -24,7 +24,10 @@ function Photos() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/photos?albumId=${id}&_sort=id&_order=asc&_start=${start}&_limit=${limit}`
+          // `http://localhost:3000/photos?albumId=${id}&_sort=id&_order=asc&_start=${start}&_limit=${limit}`
+          `http://localhost:3000/photos?albumId=${String(
+            id
+          )}&_sort=id&_order=asc&_start=${start}&_limit=${limit}`
         );
         const jsonData = await response.json();
         setPhotos((prev) => [...prev, ...jsonData]);
@@ -40,6 +43,9 @@ function Photos() {
       <div>
         <button onClick={() => navigate("/albums")}>Back to Albums</button>
         <h2>Photos for Album #{id}</h2>
+
+        {id && <AddPhoto albumId={id} />}
+
         {photos.length === 0 ? (
           <p>No photos found.</p>
         ) : (
@@ -83,7 +89,7 @@ function Photos() {
             cursor: "pointer",
           }}
         >
-          טען עוד תמונות
+          Show more photos
         </button>
       </div>
     </>

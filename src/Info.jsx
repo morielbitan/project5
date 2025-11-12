@@ -15,36 +15,52 @@ function Info() {
       navigate("/");
     }
   }, [navigate]);
+
   if (!userInfo) {
     return <p>Loading user info...</p>;
   }
 
+  const { name, username, email, address, phone, company } = userInfo;
+
   return (
-    <>
-      <div>
-        <h1>Info</h1>
-        <p>hello {userInfo.username}</p>
-        <p>name: {userInfo.name}</p>
-        <p>username: {userInfo.username}</p>
-        <p>email: {userInfo.email}</p>
+    <div>
+      <h1>Info</h1>
 
-        <p>address:</p>
-        <p>street: {userInfo.address?.street}</p>
-        <p>suite: {userInfo.address.suite}</p>
-        <p>city: {userInfo.address.city}</p>
-        <p>zipcode: {userInfo.address.zipcode}</p>
-        <p>geo:</p>
+      {username && <p>hello {username}</p>}
+      {name && <p>name: {name}</p>}
+      {username && <p>username: {username}</p>}
+      {email && <p>email: {email}</p>}
 
-        <p>lat: {userInfo.address.geo.lat}</p>
-        <p>lng: {userInfo.address.geo.lng}</p>
-        <p>phone: {userInfo.phone}</p>
-        <p>website: ****** </p>
-        <p>company:</p>
-        <p>name: {userInfo.company.name}</p>
-        <p>catchPhrase: {userInfo.company.catchPhrase}</p>
-        <p>bs: {userInfo.company.bs}</p>
-      </div>
-    </>
+      {address && (
+        <>
+          <p>address:</p>
+          {address.street && <p>street: {address.street}</p>}
+          {address.suite && <p>suite: {address.suite}</p>}
+          {address.city && <p>city: {address.city}</p>}
+          {address.zipcode && <p>zipcode: {address.zipcode}</p>}
+
+          {address.geo && (
+            <>
+              <p>geo:</p>
+              {address.geo.lat && <p>lat: {address.geo.lat}</p>}
+              {address.geo.lng && <p>lng: {address.geo.lng}</p>}
+            </>
+          )}
+        </>
+      )}
+
+      {phone && <p>phone: {phone}</p>}
+      {userInfo.website && <p>website: ******</p>}
+
+      {company && (
+        <>
+          <p>company:</p>
+          {company.name && <p>name: {company.name}</p>}
+          {company.catchPhrase && <p>catchPhrase: {company.catchPhrase}</p>}
+          {company.bs && <p>bs: {company.bs}</p>}
+        </>
+      )}
+    </div>
   );
 }
 
