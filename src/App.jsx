@@ -24,22 +24,22 @@ function MainLayout() {
       <nav>
         <ul>
           <li>
-            <Link to="/home">Home</Link>
+            <Link to="home">Home</Link>
           </li>
           <li>
-            <Link to="/info">Info</Link>
+            <Link to="home/info">Info</Link>
           </li>
           <li>
-            <Link to="/Albums">Albums</Link>
+            <Link to="home/albums">Albums</Link>
           </li>
           <li>
-            <Link to="/Posts">Posts</Link>
+            <Link to="home/posts">Posts</Link>
           </li>
           <li>
-            <Link to="/Todos">Todos</Link>
+            <Link to="home/todos">Todos</Link>
           </li>
           <li>
-            <Link to="/Logout">Logout</Link>
+            <Link to="home/logout">Logout</Link>
           </li>
         </ul>
       </nav>
@@ -59,17 +59,13 @@ function App() {
         <Route path="/infoToRegister" element={<InfoToRegister />} />
 
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="Todos" element={<Todos />} />
-          {/* <Route path="/Logout" element={<Logout />} /> */}
           <Route path="home" element={<Home />} />
-          <Route path="info" element={<Info />} />
-          <Route path="todos" element={<Todos />} />
-          <Route path="/Logout" element={<Logout />} />
-          <Route path="/Albums" element={<Albums />} />
-          <Route path="/albums/:id/photos" element={<Photos />} />
+          <Route path="home/posts" element={<Posts />} />
+          <Route path="home/todos" element={<Todos />} />
+          <Route path="home/info" element={<Info />} />
+          <Route path="home/logout" element={<Logout />} />
+          <Route path="home/albums" element={<Albums />} />
+          <Route path="home/albums/:id/photos" element={<Photos />} />
         </Route>
       </Routes>
     </BrowserRouter>

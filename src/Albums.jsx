@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Albums() {
   const [userInfo, setUserInfo] = useState(null);
@@ -32,16 +32,16 @@ function Albums() {
     fetchData();
   }, [userInfo]);
 
-  function photos(id) {
-    navigate(`${id}/photos`);
-  }
+  //   function photos(id) {
+  //     navigate(`${id}/photos`);
+  //   }
   const filteredAlbums = searchId
     ? albums.filter((album) => album.id.toString() === searchId)
     : albums;
 
   return (
     <>
-      <div>
+      <div className="div">
         <h1>Albums</h1>
         <h2>Search a album:</h2>
 
@@ -52,15 +52,25 @@ function Albums() {
           onChange={(e) => setSearchId(e.target.value)}
         />
         {albums.length === 0 ? (
-          <p>No todo found.</p>
+          <p>No album found.</p>
         ) : (
           <ol>
             {filteredAlbums.map((album) => (
               <li key={album.id}>
-                <label>
+                <Link
+                  to={`${album.id}/photos`}
+                  style={{
+                    textDecoration: "none",
+                    fontWeight: "bold",
+                  }}
+                >
                   {album.title}
-                  <button onClick={() => photos(album.id)}>View</button>
-                </label>
+                </Link>
+
+                {/* <label> */}
+                {/* {album.title} */}
+                {/* <button onClick={() => photos(album.id)}>View</button> */}
+                {/* </label> */}
               </li>
             ))}
           </ol>

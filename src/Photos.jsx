@@ -8,7 +8,7 @@ function Photos() {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
   const { id } = useParams();
-  const [start, setStart] = useState(1);
+  const [start, setStart] = useState(0);
   const limit = 10;
 
   useEffect(() => {
@@ -24,7 +24,9 @@ function Photos() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/photos?albumId=${id}&_sort=id&_order=asc&_start=${start}&_limit=${limit}`
+          `http://localhost:3000/photos?albumId=${String(
+            id
+          )}&_sort=id&_order=asc&_start=${start}&_limit=${limit}`
         );
         const jsonData = await response.json();
         setPhotos((prev) => [...prev, ...jsonData]);
@@ -34,6 +36,11 @@ function Photos() {
     };
     fetchData();
   }, [userInfo, id, start]);
+  function handleDelete(id) {
+    fetch(`http://localhost:3000/photos/${id}`, {
+      method: "DELETE",
+    });
+  }
 
   return (
     <>
@@ -70,6 +77,7 @@ function Photos() {
                 <p style={{ fontSize: "14px", marginTop: "8px" }}>
                   {photo.title}
                 </p>
+                <button onClick={() => handleDelete(photo.id)}>Delete</button>
               </div>
             ))}
           </div>
@@ -83,7 +91,7 @@ function Photos() {
             cursor: "pointer",
           }}
         >
-          טען עוד תמונות
+          Upload more photos
         </button>
       </div>
     </>

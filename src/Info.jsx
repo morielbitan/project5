@@ -23,7 +23,7 @@ function Info() {
     <>
       <div>
         <h1>Info</h1>
-        <p>hello {userInfo.username}</p>
+        <h2>hello {userInfo.username}</h2>
         <p>name: {userInfo.name}</p>
         <p>username: {userInfo.username}</p>
         <p>email: {userInfo.email}</p>

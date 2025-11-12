@@ -56,31 +56,38 @@ function Todos() {
       .catch((err) => console.error("Error updating todo:", err));
   };
   const handleChange = (e) => {
-    setSort(e.target.value);
-    if (e.target.value === "Alphabetical") {
-      const sortedTodos = [...todos].sort((a, b) =>
-        a.title.localeCompare(b.title)
-      );
-      setTodos(sortedTodos);
-    } else {
-      if (e.target.value === "Id") {
-        const sortedTodos = [...todos].sort((a, b) => a.id - b.id);
-        setTodos(sortedTodos);
-      } else {
-        if (e.target.value === "Random") {
-          const sortedTodos = [...todos].sort(() => 0.5 - Math.random());
-          setTodos(sortedTodos);
-        } else {
-          if (e.target.value === "Completed") {
-            const sortedTodos = [...todos].sort(
-              (a, b) => a.completed - b.completed
-            );
-            setTodos(sortedTodos);
-          }
-        }
-      }
-    }
+      const value = e.target.value;
+  setSort(value);
+    let url = "https://jsonplaceholder.typicode.com/todos";
+
   };
+
+  //   const handleChange = (e) => {
+  //     setSort(e.target.value);
+  //     if (e.target.value === "Alphabetical") {
+  //       const sortedTodos = [...todos].sort((a, b) =>
+  //         a.title.localeCompare(b.title)
+  //       );
+  //       setTodos(sortedTodos);
+  //     } else {
+  //       if (e.target.value === "Id") {
+  //         const sortedTodos = [...todos].sort((a, b) => a.id - b.id);
+  //         setTodos(sortedTodos);
+  //       } else {
+  //         if (e.target.value === "Random") {
+  //           const sortedTodos = [...todos].sort(() => 0.5 - Math.random());
+  //           setTodos(sortedTodos);
+  //         } else {
+  //           if (e.target.value === "Completed") {
+  //             const sortedTodos = [...todos].sort(
+  //               (a, b) => a.completed - b.completed
+  //             );
+  //             setTodos(sortedTodos);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
   function handleDelete(id) {
     fetch(`http://localhost:3000/todos/${id}`, {
       method: "DELETE",
@@ -111,21 +118,49 @@ function Todos() {
         {filteredTodos.length === 0 ? (
           <p>No todo found.</p>
         ) : (
-          <ol>
+          <ul>
             {filteredTodos.map((todo) => (
-              <li key={todo.id}>
-                <label>
+              <li
+                key={todo.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between", // הפרדה בין צד שמאל לימין
+                  padding: "6px 10px",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
+                <div>
+                  <span
+                    style={{
+                      marginRight: "10px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {todo.id}
+                  </span>
+
                   <input
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => handleToggle(todo.id)}
+                    style={{ marginRight: "10px" }}
                   />
                   {todo.title}
-                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
-                </label>
+                </div>
+                <button
+                  style={{
+                    marginRight: 0,
+                    padding: "4px",
+                    margin: "4px",
+                  }}
+                  onClick={() => handleDelete(todo.id)}
+                >
+                  Delete
+                </button>
               </li>
             ))}
-          </ol>
+          </ul>
         )}
       </div>
     </>
