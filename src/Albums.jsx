@@ -32,10 +32,6 @@ function Albums() {
     };
     fetchData();
   }, [userInfo]);
-
-  //   function photos(id) {
-  //     navigate(`${id}/photos`);
-  //   }
   const filteredAlbums = searchId
     ? albums.filter((album) => album.id.toString() === searchId)
     : albums;
@@ -58,9 +54,20 @@ function Albums() {
         {albums.length === 0 ? (
           <p>No album found.</p>
         ) : (
-          <ol>
+          <ul>
             {filteredAlbums.map((album) => (
-              <li key={album.id}>
+              <li
+                key={album.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "6px 10px",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  {album.id}
+                </span>
                 <Link
                   to={`${album.id}/photos`}
                   style={{
@@ -72,7 +79,7 @@ function Albums() {
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
         )}
       </div>
     </>

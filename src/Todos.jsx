@@ -98,11 +98,10 @@ function Todos() {
   function handleDelete(todoId) {
     deleteTodoFromDb(todoId);
     setTodos(todos.filter((todo) => todo["id"] !== todoId));
-      const value = e.target.value;
-  setSort(value);
+    const value = e.target.value;
+    setSort(value);
     let url = "https://jsonplaceholder.typicode.com/todos";
-
-  };
+  }
 
   //   const handleChange = (e) => {
   //     setSort(e.target.value);
@@ -171,21 +170,15 @@ function Todos() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "space-between", // הפרדה בין צד שמאל לימין
+                  justifyContent: "space-between",
                   padding: "6px 10px",
                   borderBottom: "1px solid #ddd",
                 }}
               >
                 <div>
-                  <span
-                    style={{
-                      marginRight: "10px",
-                      fontWeight: "bold",
-                    }}
-                  >
+                  <span style={{ marginRight: "10px", fontWeight: "bold" }}>
                     {todo.id}
                   </span>
-
                   <input
                     type="checkbox"
                     checked={todo.completed}
@@ -193,16 +186,9 @@ function Todos() {
                     style={{ marginRight: "10px" }}
                   />
                   {todo.title}
-
-                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
-                </label>
                 </div>
                 <button
-                  style={{
-                    marginRight: 0,
-                    padding: "4px",
-                    margin: "4px",
-                  }}
+                  style={{ padding: "4px", margin: "4px" }}
                   onClick={() => handleDelete(todo.id)}
                 >
                   Delete
