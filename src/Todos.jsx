@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import AddTodo from "./AddTodo";
 
 function Todos() {
   const [userInfo, setUserInfo] = useState(null);
   const [sort, setSort] = useState("Chose how to sort");
   const [searchId, setSearchId] = useState("");
-
-  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
-  //   const [id, setId] = useState(1);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const User = localStorage.getItem("userInfo");
     if (User) {
@@ -18,6 +18,7 @@ function Todos() {
       navigate("/");
     }
   }, [navigate]);
+
   useEffect(() => {
     if (!userInfo) return;
     const fetchData = async () => {
@@ -34,6 +35,7 @@ function Todos() {
     };
     fetchData();
   }, [userInfo]);
+
   const handleToggle = (id) => {
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if (!todoToUpdate) return;
@@ -55,7 +57,47 @@ function Todos() {
       })
       .catch((err) => console.error("Error updating todo:", err));
   };
+
   const handleChange = (e) => {
+    setSort(e.target.value);
+    if (e.target.value === "Alphabetical") {
+      const sortedTodos = [...todos].sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+      setTodos(sortedTodos);
+    } else {
+      if (e.target.value === "Id") {
+        const sortedTodos = [...todos].sort((a, b) => a.id - b.id);
+        setTodos(sortedTodos);
+      } else {
+        if (e.target.value === "Random") {
+          const sortedTodos = [...todos].sort(() => 0.5 - Math.random());
+          setTodos(sortedTodos);
+        } else {
+          if (e.target.value === "Completed") {
+            const sortedTodos = [...todos].sort(
+              (a, b) => a.completed - b.completed
+            );
+            setTodos(sortedTodos);
+          }
+        }
+      }
+    }
+  };
+
+  async function deleteTodoFromDb(todoId) {
+    try {
+      await fetch(`http://localhost:3000/todos/${todoId}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }
+
+  function handleDelete(todoId) {
+    deleteTodoFromDb(todoId);
+    setTodos(todos.filter((todo) => todo["id"] !== todoId));
       const value = e.target.value;
   setSort(value);
     let url = "https://jsonplaceholder.typicode.com/todos";
@@ -93,6 +135,7 @@ function Todos() {
       method: "DELETE",
     });
   }
+
   const filteredTodos = searchId
     ? todos.filter((todo) => todo.id.toString() === searchId)
     : todos;
@@ -100,6 +143,8 @@ function Todos() {
   return (
     <>
       <div>
+        {userInfo && <AddTodo userId={userInfo.id} />}
+
         <h1>Todos</h1>
         <select value={sort} onChange={handleChange}>
           <option value="Id">Id</option>
@@ -107,14 +152,15 @@ function Todos() {
           <option value="Random">Random</option>
           <option value="Completed">Chek</option>
         </select>
-        <h2>Search a todo:</h2>
 
+        <h2>Search a todo:</h2>
         <input
           type="text"
           placeholder="Search by todo ID"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
         />
+
         {filteredTodos.length === 0 ? (
           <p>No todo found.</p>
         ) : (
@@ -147,6 +193,9 @@ function Todos() {
                     style={{ marginRight: "10px" }}
                   />
                   {todo.title}
+
+                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                </label>
                 </div>
                 <button
                   style={{

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import AddAlbum from "./AddAlbum";
 import { Link, useNavigate } from "react-router-dom";
 
 function Albums() {
@@ -43,6 +44,9 @@ function Albums() {
     <>
       <div className="div">
         <h1>Albums</h1>
+
+        {userInfo && <AddAlbum userId={userInfo.id} />}
+
         <h2>Search a album:</h2>
 
         <input
@@ -66,11 +70,6 @@ function Albums() {
                 >
                   {album.title}
                 </Link>
-
-                {/* <label> */}
-                {/* {album.title} */}
-                {/* <button onClick={() => photos(album.id)}>View</button> */}
-                {/* </label> */}
               </li>
             ))}
           </ol>
